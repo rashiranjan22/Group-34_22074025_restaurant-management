@@ -1,0 +1,76 @@
+{% extends 'users/chef_dashboard.html' %}
+
+{% load static %}
+
+{% block internal %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/recipe_list.css' %}">
+<style>
+  .recipe-link {
+    color: blue /* Blue color for "Open Recipe" link */
+}
+</style>
+{% endblock %}
+
+{% block sidebar %}
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link">
+      <i class="icon-grid menu-icon"></i>
+      <span class="menu-title">Dashboard</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="{% url 'chef_dashboard' %}" aria-expanded="false" aria-controls="ui-basic">
+      <i class="icon-layout menu-icon"></i>
+      <span class="menu-title">Orders</span>
+      <i class="menu-arrow"></i>
+    </a>
+
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="{% url 'menulist' %}" aria-expanded="false" aria-controls="ui-basic">
+      <i class="icon-layout menu-icon"></i>
+      <span class="menu-title">Menu</span>
+      <i class="menu-arrow"></i>
+    </a>
+
+  </li>
+
+</ul>
+
+{% endblock %}
+
+{% block commonimg %} RECIPES {% endblock %}
+
+{% block content2 %}
+<div class="recipes-section">
+
+    <h3 style="color: white; font-size: xx-large;">Products with Recipes:</h3>
+    <ul class="product-list">
+        {% for product in products_with_recipes %}
+        <div class="product-container">
+            <img class="product-image" src="{{ product.image.url }}" alt="{{ product.product_id.product_name }}">
+            <div class="product-info">
+                <p class="product-name">{{ product.product_name }}</p>
+                <p class="recipe-description">{{ product.recipe.recipe|truncatewords:20 }}</p>
+                <a class="recipe-link" href="{% url 'open_recipe' product_id=product.product_id %}">Open Recipe</a>
+            </div>
+        </div>
+        {% endfor %}
+    </ul>
+    
+
+    <h3 style="color: white; font-size: xx-large;">Products without Recipes:</h3>
+    <ul class="product-list">
+      {% for product in products_without_recipes %}
+            <div class="product-container">
+                <img class="product-image" src="{{ product.image.url }}" alt="{{ product.product_name }}">
+                <p class="product-name">{{ product.product_name }}</p>
+                <p class="recipe-description">No recipe added yet.</p>
+                <a class="recipe-link" href="{% url 'add_recipe' product_id=product.product_id %}">Add Recipe</a>
+            </div>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

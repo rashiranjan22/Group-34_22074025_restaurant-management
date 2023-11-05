@@ -1,0 +1,48 @@
+/* Style for the recipe edit container */
+.recipe-edit-container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style for the product image */
+.product-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Style for the product image container */
+.product-image-container {
+    margin: 20px auto;
+    max-width: 200px; /* Adjust the max-width to your preference */
+}
+
+/* Style for the recipe form */
+.recipe-form {
+    text-align: left;
+    max-width: 100%; /* Make the form as wide as its container */
+}
+
+.recipe-form-field {
+    margin-bottom: 50px;
+}
+
+#id_recipe {
+    width: 100%; /* Make the text field as wide as its container */
+    height: auto; /* Auto height to fit content */
+
+}
+
+.update-button {
+    background-color: #FFD700; /* Bulged out yellow */
+    color: #000;
+    padding: 15px 30px; /* Increase the padding for a bulged effect */
+    border: none;
+    cursor: pointer;
+    border-radius: 10px; /* Add rounded corners */
+}
+
+/* Hover effect for the button */
+.update-button:hover {
+    background-color: #FFD700; /* Adjust the hover color to match the background */
+}

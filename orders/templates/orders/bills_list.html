@@ -1,0 +1,147 @@
+{% extends "users/receptionist_dashboard.html" %}
+
+{% block title %}Bills list{% endblock %}
+
+{% block internalstyle %} 
+<style>
+    /* Style for the page title */
+h2 {
+    text-align: center;
+    color: #90c634; /* Blue color */
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+/* Style for the table container */
+div {
+    /* display: flex; */
+    align-items: center;
+    /* justify-content: center; */
+}
+
+/* Style for the table containing bill list */
+table {
+    flex: 1;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px;
+}
+
+table th {
+    background-color: #90c634;
+    color: white;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+/* table tr:nth-child(even) {
+    background-color: #64912d;
+}
+table tr:nth-child(odd) {
+    background-color: #ffffff5c;
+} */
+
+table tr{
+    background-color: rgb(92, 91, 91);
+    color:white
+}
+
+table tr:hover {
+    background-color: #59472c; /* Light blue on hover */
+}
+
+/* Style for the "Generate Bill" links */
+a {
+    color: #ed8f0c;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+</style>
+ {% endblock %}
+
+
+ {% block sidebar %}
+ <ul class="nav">
+   <li class="nav-item">
+     <a class="nav-link" href="#">
+       <i class="icon-grid menu-icon"></i>
+       <span class="menu-title">DASHBOARD</span>
+     </a>
+   </li>
+   <li class="nav-item">
+     <a class="nav-link" data-toggle="collapse" href="{% url 'receptionist_dashboard' %}" aria-expanded="false" aria-controls="ui-basic">
+       <i class="icon-layout menu-icon"></i>
+       <span class="menu-title">Orders</span>
+       <i class="menu-arrow"></i>
+     </a>
+    </li>
+   <li class="nav-item">
+     <a class="nav-link" data-toggle="collapse" href="{% url 'place_order' %}" aria-expanded="false" aria-controls="ui-basic">
+       <i class="icon-layout menu-icon"></i>
+       <span class="menu-title">Place an order</span>
+       <i class="menu-arrow"></i>
+     </a>
+     </li>
+     <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="{% url 'menulist' %}" aria-expanded="false" aria-controls="ui-basic">
+          <i class="icon-layout menu-icon"></i>
+          <span class="menu-title">Menu</span>
+          <i class="menu-arrow"></i>
+        </a>
+        </li>
+ 
+ </ul>
+ {% endblock %}
+
+
+{% block content %}
+    <h2>Bills List</h2>
+    <div >
+        <!-- List of Bills -->
+        <div >
+            <table >
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Status</th>
+                        <th>Generate Bill</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bill in bills %}
+                        <tr>
+                            <td>{{ bill.order_id }}</td>
+                                    {% if bill.status %}
+                                    <td>Done</td>
+                                    {% else %}
+                                    <td>
+                                        <form method="post" action="{% url 'change_order_status' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="bill_id" value="{{ bill.order_id }}">
+                                            <input type="hidden" name="original_status" value="{{ bill.status }}">
+                                            <button class="status-button" type="submit">
+                                                Mark as Done
+                                            </form>
+                                            {% endif %}
+                            </td> 
+                            <td><a href="{% url 'generate_bill' order_id=bill.order_id %}">Generate Bill</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Display Bill Details -->
+        <div>
+            {% block bill_details %}{% endblock %}
+        </div>
+    </div>
+    {% endblock %}

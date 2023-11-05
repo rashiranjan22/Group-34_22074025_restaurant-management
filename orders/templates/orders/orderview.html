@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Home</title>
+    <style>
+        .orders-table {
+            float: right;
+            width: 30%;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .order {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .place_order {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .orders-table {
+            float: right;
+            width: 30%;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+    </style>
+</head>
+<body>
+
+    {% if message %}
+    <div id="toast">{{ message }}</div>
+    {% endif %}
+
+    <h1>Welcome to the Restaurant</h1>
+
+    <!-- Place New Order Button -->
+    <form method="post" action="{% url 'Orders' %}">
+        {% csrf_token %}
+        <button type="submit" name="place_order" class="place_order">Place Order</button>
+    </form>
+
+    <!-- <a href="{% url 'place_order' %}" class="place_order">place order</a> -->
+
+
+    <!-- Orders Table -->
+    <div class="orders-table">
+        <h2>Orders</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order Serial</th>
+                    <th>Order ID</th>
+                    <th>Item Name</th>
+                    <th>Qty</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.serial }}</td>
+                        <td>{{ order.order_id.order_id }}</td>
+                        <td>{{ order.product_id.product_name }}</td>
+                        <td>{{ order.Qty }}</td>
+                        <td>{{ order.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

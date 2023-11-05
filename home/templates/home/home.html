@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <!--* Start of Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords"
+        content="Resto, Restaurant Landing Page Design, BuildWith Angga, Frontend Coding Challenge Agustusan, Figma Slicing" />
+    <meta name="description" content="Resto's Restaurant Landing Page Design." />
+    <meta name="author" content="Probo Krishnacahya, probo.krishnacahya@gmail.com">
+    <meta name="owner" content="Resto" />
+    <meta name="theme-color" content="#5A4FCF" />
+    <!--* End of Meta Tags -->
+
+    <!--* Start of Tab Page Title -->
+    <title>Resto</title>
+    <!--* End of Tab Page Title -->
+
+    <!--* Start of Page Favicon -->
+    <link rel="icon" href="static/home/assets/img/favicon.ico" type="image/ico" />
+    <!--* End of Page Favicon -->
+
+    <!--* Start of Bootstrap Framework (Cascading Style Sheets & Icons) -->
+    <link rel="stylesheet" href="static/home/assets/framework/bootstrap-5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/home/assets/framework/bootstrap-icons-1.9.1/font/bootstrap-icons.css">
+    <!--* End of Bootstrap Framework (Cascading Style Sheets & Icons) -->
+
+    <!-- * Start of Animate On Scroll Library (Cascading Style Sheets) -->
+    <link rel="stylesheet" href="static/home/assets/library/aos/aos-master/dist/aos.css">
+    <!-- * End of Animate On Scroll Library (Cascading Style Sheets) -->
+
+    <!--* Start of External Cascading Style Sheets -->
+    <link rel="stylesheet" href="static/home/assets/css/style.css">
+    <!--* End of External Cascading Style Sheets -->
+
+    <style>body{background: black;}</style>
+</head>
+
+<body class="container-fluid">
+    <!--* Start of Website Preloading -->
+    <div class="position-fixed d-grid align-items-center text-center" id="preloader">
+        <div>
+            <div class="spinner-border p-4 my-5" role="status"></div>
+            <h4>Loading.. Please Wait</h4>
+        </div>
+    </div>
+    <!--* End of Website Preloading -->
+
+    <!--* Start of Navigation (Header) -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+                aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Start of Menu -->
+            <div class="collapse navbar-collapse justify-content-between" id="navbarToggler">
+                <ul class="navbar-nav mb-2 mb-lg-0" style="margin-left: 30px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#careers">Careers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#aboutus">About us</a>
+                    </li>
+                </ul>
+                <!-- End of Menu -->
+
+                <!-- Start of Logo -->
+                <a class="navbar-brand" href="/">
+                    <div class="hstack gap-3 w-25">
+                        <img src="static/home/assets/img/logo.png" alt="Logo" loading="lazy" style="width: 80px;">
+                        <h2 style="color: white;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Zesty Bites</h2>
+                    </div>    
+                </a>
+                <!-- End of Logo -->
+
+                <div class="hstack gap-2 w-25">
+                    <!-- Start of Search Bar -->
+                    <!-- <form role="search" class="w-100">
+                        <div class="input-group flex-nowrap shadow-sm rounded">
+                            <span class="input-group-text border-0 bg-white p-2" id="addon-wrapping">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input type="text" class="form-control border-0 fw-semibold"
+                                placeholder="Search your favorite food" accesskey="s" aria-label="Search"
+                                aria-describedby="addon-wrapping">
+                        </div>
+                    </form> -->
+                    <!-- End of Search Bar -->
+
+                    <!-- Start of Log In Button -->
+                    
+
+<a href="{% url 'login' %}" class="btn btn-secondary fw-semibold border-0 rounded-3 shadow-sm w-25 p-2" style="color: yellow;" type="button">Log In</a>
+
+<a href="{% url 'register' %}" class="btn btn-secondary fw-semibold border-0 rounded-3 shadow-sm w-25 p-2" style="color: yellow;" type="button">Register</a>
+
+<a href="{% url 'menulist' %}" class="btn btn-secondary fw-semibold border-0 rounded-3 shadow-sm w-25 p-2" style="color: yellow;" type="button">Menu</a>
+
+<a href="{% url 'admin:index' %}" class="btn btn-secondary fw-semibold border-0 rounded-3 shadow-sm w-25 p-2" style="color: yellow;" type="button">Login as Admin</a>
+
+                    <!-- End of Log In Button -->
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--* End of Navigation (Header) -->
+
+    <!--* Start of Main Content -->
+    <main class="vstack gap-5 my-5">
+        <!-- Start of Section #1 Slider -->
+        <section id="reservation" data-aos="fade-up">
+            <!-- Start of Restaurant Photo (Image Slider) -->
+            <div class="slider position-relative">
+                <!-- Start of Restaurant Overview (Card Overlay) -->
+                <!-- <div class="card border-0 rounded-4 shadow-sm w-25 position-absolute gap-4 p-4" id="overview">
+                    <div class="vstack">
+                        <div class="horizontal text-muted">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <span class="text-warning fw-semibold">5.0</span>
+                            <span class="text-muted">(5.2K+)</span>
+                        </div>
+                        <h4>Padang Restaurant</h4>
+                        <h5 class="text-muted">IDR 49.999 - IDR 560.000</h5>
+                        <div class="horizontal text-muted">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <span>&ensp;Padang, Indonesia</span>
+                        </div>
+                    </div>
+                    <div class="vstack gap-2">
+                        <a href="/reservation?id=1">
+                            <button class="btn btn-primary fw-semibold border-0 rounded-3 shadow-sm p-3">
+                                Make Reservation&ensp;
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+                        </a>
+                        <div class="horizontal text-muted">
+                            <i class="bi bi-info-square"></i>
+                            <span>&ensp;No extra cost</span>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- End of Restaurant Overview (Card Overlay) -->
+                <div class="slider-inner position-absolute hstack gap-4" style="margin-left: 0;">
+                    <img src="static/home/assets/img/rest_outside.jpg" alt="Slider" class="w-100 brighten" style="object-fit: cover; border-radius: 10px;height: 600px;">
+                    <img src="static/home/assets/img/carousel_2.svg" alt="Slider" class="w-100 brighten" style="object-fit: cover; border-radius: 10px; height: 600px">
+                </div>
+                
+            </div>
+            <!-- End of Restaurant Photo (Image Slider) -->
+        </section>
+        <!-- End of Section #1 Slider -->
+
+        <!-- Start of Section #2 Special Benefit For You -->
+        <section id="benefit" data-aos="fade-up">
+            <div class="container">
+                <div class="text-center vstack gap-3">
+                    <!-- Start of Section Title -->
+                    <div class="row">
+                        <h3 class="title text-uppercase" style="color: rgb(255, 140, 0);">Why Should You Choose Us?</h3>
+                        <!-- <h3>Why Should Choose Us?</h3> -->
+                    </div>
+                    <!-- End of Section Title -->
+
+                    <!-- Start of Special Benefits (Card) -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="card h-100 border-0 rounded-4 shadow-sm vstack gap-3 p-0">
+                                <div class="card-body vstack gap-2 p-4">
+                                    <img src="static/home/assets/img/special_benefit_2.svg" alt="Reservation" loading="lazy"
+                                        class="mx-5 pb-3">
+                                    <h5 class="card-title">Menu and Order Management</h5>
+                                    <p class="card-text text-muted"> Tools that simplify menu updates and order processing.
+                                    </p>
+                                </div>
+                                <!-- <div class="card-footer rounded-4 border-0 bg-transparent p-0">
+                                    <a href="/special-benefit/extra-discounts">
+                                        <button class="btn btn-primary fw-semibold border-0 bg-transparent w-100 py-3"
+                                            id="choose">
+                                            View Details&ensp;
+                                            <i class="bi bi-chevron-right"></i>
+                                        </button>
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="card h-100 border-0 rounded-4 shadow-sm vstack gap-3 p-0">
+                                <div class="card-body vstack gap-2 p-4">
+                                    <img src="static/home/assets/img/special_benefit_1.svg" alt="Reservation" loading="lazy"
+                                        class="mx-5 pb-3">
+                                    <h5 class="card-title">Efficient Leave Management:</h5>
+                                    <p class="card-text text-muted">Efficient leave management for all of our employees
+                                    </p>
+                                </div>
+                                <!-- <div class="card-footer rounded-4 border-0 bg-transparent p-0">
+                                    <a href="/special-benefit/come-and-eat">
+                                        <button
+                                            class="btn btn-primary fw-semibold border-0 bg-transparent rounded-4 w-100 py-3"
+                                            id="choose">
+                                            View Details&ensp;
+                                            <i class="bi bi-chevron-right"></i>
+                                        </button>
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="card h-100 border-0 rounded-4 shadow-sm vstack gap-3 p-0">
+                                <div class="card-body vstack gap-2 p-4">
+                                    <img src="static/home/assets/img/special_benefit_4.svg" alt="Reservation" loading="lazy"
+                                        class="mx-5 pb-3">
+                                    <h5 class="card-title">Data Security</h5>
+                                    <p class="card-text text-muted">Robust security measures to protect sensitive employee data.
+                                        reservation</p>
+                                </div>
+                                <!-- <div class="card-footer rounded-4 border-0 bg-transparent p-0">
+                                    <a href="/special-benefit/no-extra-fee">
+                                        <button
+                                            class="btn btn-primary fw-semibold border-0 bg-transparent rounded-4 w-100 py-3"
+                                            id="choose">
+                                            View Details&ensp;
+                                            <i class="bi bi-chevron-right"></i>
+                                        </button>
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="card h-100 border-0 rounded-4 shadow-sm vstack gap-3 p-0">
+                                <div class="card-body vstack gap-2 p-4">
+                                    <img src="static/home/assets/img/special_benefit_3.svg" alt="Reservation" loading="lazy"
+                                        class="mx-5 pb-3">
+                                    <h5 class="card-title">Cost-Effective</h5>
+                                    <p class="card-text text-muted">our cost-effective restaurant management system is not just an expense; it's an investment that pays dividends by optimizing operations
+                                        </p>
+                                </div>
+                                <!-- <div class="card-footer rounded-4 border-0 bg-transparent p-0">
+                                    <a href="/special-benefit/guaranteed-cleanliness">
+                                        <button
+                                            class="btn btn-primary fw-semibold border-0 bg-transparent rounded-4 w-100 py-3"
+                                            id="choose">
+                                            View Details&ensp;
+                                            <i class="bi bi-chevron-right"></i>
+                                        </button>
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Special Benefits (Card) -->
+                </div>
+            </div>
+        </section>
+        <!-- End of Section #2 Special Benefit For You -->
+
+        <!-- Start of Section #3 Top 3 Featured Restaurant -->
+        <section id="gallery" data-aos="fade-up">
+            <div class="container">
+                <div class="hstack gap-5">
+                    <div class="vstack gap-5 align-self-center w-25">
+                        <!-- Start of Section Title -->
+                        <div class="vstack gap-2">
+                            <div>
+                                <h1 class="title text-uppercase" style="color: rgb(255, 140, 0);">Gallery</h1>
+                            <h3 style="color: rgb(109, 78, 0);">Have a glance of our restaurant</h3>
+                            </div>
+                            <p class="text-muted">The best restaurant in our opinion is how much customers like it in
+                                terms
+                                of place, price, comfort and of course the taste of the food itself.</p>
+                        </div>
+                        <!-- End of Section Title -->
+
+                        <!-- Start of View All Restaurant (Button) -->
+                        <!-- <div>
+                            <a href="/featured-restaurant">
+                                <button class="btn btn-primary fw-semibold border-0 rounded-3 shadow-sm p-3">
+                                    View All Restaurant&ensp;
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                            </a>
+                        </div> -->
+                        <!-- End of View All Restaurant (Button) -->
+                    </div>
+
+                    <!-- Start of Most Popular Restaurants -->
+                    <div class="hstack gap-3">
+                        <div class="zoom-in card border-0 rounded-4 shadow-sm">
+                            <img src="static/home/assets/img/top_3_featured_1.svg" alt="Featured Restaurant"
+                                class="card-img rounded-4" loading="lazy">
+                            <!-- <div class="card-img-overlay top-50 mt-4 px-4 pt-5">
+                                <div class="card border-0 rounded-4 shadow-sm hstack gap-5 p-4">
+                                    <div class="vstack gap-1">
+                                        <div class="horizontal text-muted">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <span class="text-warning fw-semibold">5.0</span>
+                                            <span class="text-muted">(7.6K+)</span>
+                                        </div>
+                                        <h5>Bind Balorant</h5>
+                                        <div class="horizontal text-muted">
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                            <span class="text-muted">&ensp;Jakarta, Indonesia</span>
+                                        </div>
+                                    </div>
+                                    <a href="/featured-restaurant?id=1" class="stretched-link">
+                                        <button
+                                            class="btn btn-primary fw-semibold border-0 rounded-3 shadow-sm d-block mx-auto px-2 py-1">
+                                            <i class="bi bi-arrow-right"></i>
+                                        </button>
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="zoom-in rounded-4">
+                            <img src="static/home/assets/img/top_3_featured_2.svg" alt="Featured Restaurant" loading="lazy">
+                        </div>
+                        <div class="zoom-in rounded-4">
+                            <img src="static/home/assets/img/top_3_featured_3.svg" alt="Featured Restaurant" loading="lazy">
+                        </div>
+                    </div>
+                    <!-- End of Most Popular Restaurants -->
+                </div>
+            </div>
+        </section>
+        <!-- End of Section #3 Top 3 Featured Restaurant -->
+
+        <!-- Start of Section #4 Restaurant Based By City -->
+        <section id="careers" data-aos="fade-up">
+            <div class="container">
+                <div class="vstack gap-3">
+                    <div class="hstack justify-content-between">
+                        <!-- Start of Section Title -->
+                        <div>
+                            <h1 class="title text-uppercase" style="color: rgb(255, 140, 0);">Careers</h1>
+                            <h3 style="color: rgb(109, 78, 0);">You can explore</h3>
+                        </div>
+                        <!-- End of Section Title -->
+
+                        <!-- Start of Location (Dropdown) -->
+                        <!-- <div>
+                            <div class="dropdown dropdown-center">
+                                <button
+                                    class="btn btn-secondary border-0 bg-secondary bg-opacity-10 text-secondary shadow-sm dropdown-toggle p-3"
+                                    id="location" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-geo-alt-fill"></i>&ensp;Jakarta, Indonesia
+                                </button>
+                                <ul class="dropdown-menu border-0 shadow-sm">
+                                    <li><a class="dropdown-item" href="/kotamobagu">Kotamobagu, Indonesia</a></li>
+                                    <li><a class="dropdown-item" href="/kupang">Kupang, Indonesia</a></li>
+                                    <li><a class="dropdown-item" href="/langsa">Langsa, Indonesia</a></li>
+                                </ul>
+                            </div>
+                        </div> -->
+                        <!-- End of Location (Dropdown) -->
+                    </div>
+
+                    <!-- Start of Restaurant Near You -->
+                    <div class="hstack gap-4">
+                        <div class="zoom-in card border-0 rounded-4 shadow-sm p-0">
+                            <img src="static/home/assets/img/chef.jpg" style="width: 400px;" alt="Near Restaurant"
+                                class="card-img rounded-4" loading="lazy">
+                            <div class="card-img-overlay top-50 mt-4 pt-4" style="width: min-content;">
+                                <div class="card border-0 rounded-4 shadow-sm hstack px-4 py-2">
+                                    <div class="vstack gap-1 pt-2">
+                                        
+                                        <h5>Chef</h5>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zoom-in card border-0 rounded-4 shadow-sm p-0">
+                            <img src="static/home/assets/img/receptionist.jpg" style="width: 400px;" alt="receptionist"
+                                class="card-img rounded-4" loading="lazy">
+                                <div class="card-img-overlay top-50 mt-4 pt-4" style="width: min-content;">
+                                    <div class="card border-0 rounded-4 shadow-sm hstack px-4 py-2">
+                                        <div class="vstack gap-1 pt-2">
+                                            
+                                            <h5>Receptionist</h5>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="zoom-in card border-0 rounded-4 shadow-sm p-0">
+                            <img src="static/home/assets/img/manager.png" style="width: 400px;" alt="Near Restaurant"
+                                class="card-img rounded-4" loading="lazy">
+                                <div class="card-img-overlay top-50 mt-4 pt-4" style="width: min-content;">
+                                    <div class="card border-0 rounded-4 shadow-sm hstack px-4 py-2">
+                                        <div class="vstack gap-1 pt-2">
+                                            
+                                            <h5>Manager</h5>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- End of Restaurant Near You -->
+
+                    <!-- Start of View All Restaurant (Button) -->
+                    <div class="text-center mt-3">
+                        <a href="/restaurant-near-you">
+                            <button class="btn btn-primary fw-semibold border-0 rounded-3 shadow-sm p-3">
+                                View All Careers&ensp;
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+                        </a>
+                    </div>
+                    <!-- End of View All Restaurant (Button) -->
+                </div>
+            </div>
+        </section>
+        <!-- End of Section #4 Restaurant Based By City -->
+
+        <!-- Start of Top 4 Expert Chefs -->
+        <section id="aboutus" data-aos="fade-up">
+            <div class="container">
+                <div class="hstack gap-5">
+                    <!-- Start of Chef Profile (Photo) -->
+                    <img src="static/home/assets/img/aboutus.webp" alt="Expert Chef" loading="lazy"
+                        class="rounded-5 shadow-sm position-relative mx-5">
+                    <!-- End of Chef Profile (Photo) -->
+                    <!-- Start of Chef Profile (Restaurant Card Overlay - Bottom Left) -->
+                    <div class="card border-0 rounded-4 shadow-sm hstack gap-3 p-4 position-absolute"
+                        id="chef-at-restaurant">
+                        <img src="static/home/assets/img/pearl_dolphin.svg" alt="Pearl Dolphin" loading="lazy" class="shadow-sm">
+                        <div class="vstack gap-4 align-self-center">
+                            <div>
+                                <p class="text-muted">Trust of</p>
+                                <h5>1200 customers</h5>
+                            </div>
+                            <!-- <div>
+                                <a href="/restaurant-chef/details/?id=1"
+                                    class="text-link stretched-link fw-semibold">View
+                                    Details&ensp;
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- End of Chef Profile (Restaurant Card Overlay - Bottom Left) -->
+                    <!-- Start of Chef Profile (Experience - Top Right) -->
+                    <div class="card border-0 rounded-4 shadow-sm vstack gap-3 px-0 py-2 position-absolute" style="margin-left: -90px; margin-top: 40px;"
+                        id="experience">
+                        <img src="static/home/assets/img/experience.svg" alt="Experience" loading="lazy" class="mx-5 pt-3">
+                        <div class="text-center">
+                            <h5>12 Years</h5>
+                            <p class="text-muted">Experience</p>
+                        </div>
+                    </div>
+                    <!-- End of Chef Profile (Experience - Top Right) -->
+
+                    <div class="vstack gap-4">
+                        <!-- Start of Section Title -->
+                        <div>
+                            <h1 class="title text-uppercase" style="color: rgb(255, 140, 0);">About Us</h1>
+                            <h3 style="color: rgb(109, 78, 0);">Know before you join</h3>
+                        </div>
+                        <!-- End of Section Title -->
+
+                        <!-- Start of Expert Chefs in Fuddy (Top 4) -->
+                        <div class="vstack gap-2">
+                            <div class="card border-0 rounded-4 shadow-sm hstack gap-4 p-4">
+                                <div class="vstack gap-2">
+                                    <span class="text-muted text-uppercase">Flavourfull</span>
+                                    <h4>Zesty Bites</h4>
+                                    <div class="horizontal text-muted">
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                        <span class="text-muted">&ensp;Goa, India</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="/expert-chefs/profile-details?id=1"
+                                        class="text-link stretched-link">Profile
+                                        Details&ensp;
+                                        <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="vstack gap-2 p-4">
+                                <span class="text-muted text-uppercase">Established</span>
+                                <h4>2011</h4>
+                                <div class="horizontal text-muted">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span class="text-muted">&ensp;Formerly at Chandigarh,India</span>
+                                </div>
+                            </div>
+                            <div class="vstack gap-2 p-4">
+                                <span class="text-muted text-uppercase">Founders</span>
+                                <h4>Amy Watson and R. Johnson</h4>
+                                <!-- <div class="horizontal text-muted">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span class="text-muted">&ensp;Sunda, Indonesia</span>
+                                </div> -->
+                            </div>
+                            <div class="vstack gap-2 p-4">
+                                <span class="text-muted text-uppercase">Our Philosophy</span>
+                                <h4>Where every ingredient tells a story, and every dish is a chapter in the tale of culinary artistry. Our philosophy is to craft experiences that linger on the palate and resonate in the heart, a symphony of flavors echoing the passion we pour into each creation. In every meal, we invite you to savor not just the taste, but the essence of our dedication to excellence and the joy of sharing exceptional moments</h4>
+                                <!-- <div class="horizontal text-muted">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span class="text-muted">&ensp;Bali, Indonesia</span>
+                                </div> -->
+                            </div>
+                        </div>
+                        <!-- End of Expert Chefs in Fuddy (Top 4) -->
+
+                        <!-- Start of View All Chef (Button) -->
+                        <!-- <a href="/expert-chefs">
+                            <button class="btn btn-primary fw-semibold border-0 rounded-3 shadow-sm p-3">
+                                View All Chef&ensp;
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+                        </a> -->
+                        <!-- End of View All Chef (Button) -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End of Top 4 Expert Chefs -->
+    </main>
+    <!--* End of Main Content -->
+
+    <!--* Start of External JavaScript -->
+    <script type="module" src="static/home/assets/js/script.js"></script>
+    <!--* End of External JavaScript -->
+
+    <!--* Start of Bootstrap Framework (JavaScript Bundle with Popper) -->
+    <script src="assets/framework/bootstrap-5.2.0/js/bootstrap.bundle.min.js"></script>
+    <!--* End of Bootstrap Framework (JavaScript Bundle with Popper) -->
+
+    <!-- * Start of Animate On Scroll Library (JavaScript) -->
+    <script src="static/home/assets/library/aos/aos-master/dist/aos.js"></script>
+    <!-- * End of Animate On Scroll Library (JavaScript) -->
+</body>
+
+</html>

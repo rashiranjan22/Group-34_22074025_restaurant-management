@@ -1,0 +1,120 @@
+{% extends 'users/chef_dashboard.html' %}
+{% block internal %}
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            padding: 20px;
+            font-size: 28px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #28a745;
+            font-size: 24px;
+        }
+
+        .category {
+            margin: 20px;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flex-item {
+            background-color: rgb(62, 63, 62);
+            margin: 10px;
+            padding: 20px;
+            width: 300px;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .flex-item:hover {
+            background-color: #88d733;
+            transform: scale(1.03);
+        }
+
+        .flex-item img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 20px;
+        }
+
+        .product-price {
+            color: #007bff;
+            font-size: 18px;
+        }
+
+        .product-description {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+{% endblock %}
+
+{% block sidebar %}
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link">
+      <i class="icon-grid menu-icon"></i>
+      <span class="menu-title">Dashboard</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="{% url 'chef_dashboard' %}" aria-expanded="false" aria-controls="ui-basic">
+      <i class="icon-layout menu-icon"></i>
+      <span class="menu-title">Chef dashboard</span>
+      <i class="menu-arrow"></i>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="{% url 'receptionist_dashboard' %}" aria-expanded="false" aria-controls="ui-basic">
+      <i class="icon-layout menu-icon"></i>
+      <span class="menu-title">Receptionist dashboard</span>
+      <i class="menu-arrow"></i>
+    </a>
+  </li>
+
+</ul>
+
+{% endblock %}
+{% block commonimg %} MENU {% endblock %}
+{% block content2 %} 
+    {% for category_data in all_categories %}
+        <div class="category">
+            <h2>{{ category_data.category }}</h2>
+            <div class="flex-container">
+                {% for product in category_data.products %}
+                    <div class="flex-item">
+                        <img src="{{ product.image.url }}" alt="{{ product.product_name }} Image">
+                        <div class="product-name">{{ product.product_name }}</div>
+                        <div class="product-price">$ {{ product.price }}</div>
+                        <div class="product-description">{{ product.desc }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    {% endblock %}

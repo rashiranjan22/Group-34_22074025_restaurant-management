@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Restaurant</title>
+    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+</head>
+<body>
+    <header class="fixed-header">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'login' %}">login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="sticky-footer">
+        <div class="contact">
+            <h3>Contact Us</h3>
+            <!-- Add your contact information here -->
+        </div>
+    </footer>
+</body>
+</html>

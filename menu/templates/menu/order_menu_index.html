@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        body {
+  background-image: url('/static/users/bg2.jpg');
+  background-size: cover; 
+  background-repeat: no-repeat;  
+  background-attachment: fixed;  
+  background-position: center center; 
+  position: relative;
+
+}
+        </style>
+        {% block internalstyle %}
+        <style>
+        
+        h1 {
+            text-align: center;
+            color: #007bff;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #28a745;
+            width: 100%;
+        }
+
+        .flex-container {
+            left:0;
+            display: flex;
+            /* background-color: rgb(239, 242, 245); */
+            /* flex-wrap: wrap; */
+            /* justify-content: space-around; */
+            align-items: stretch;
+            width: 100%;
+            margin-top: 20px;
+            overflow: hidden; /* Hide overflow of the entire container */
+        }
+
+        .menu-container {
+            /* order: 1; */
+            /* display: flex; */
+            /* flex-direction: column; */
+            /* align-items: stretch; */
+            width: 65%;
+            overflow-y: auto; /* Enable vertical scrollbar for menu-container */
+        }
+
+        .category-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex; /* Allow items to be placed in a row */
+            flex-direction: row;
+            align-items: center; /* Center items horizontally */
+        }
+
+        .menu-flex-item {
+            background-color: #ffffff;
+            margin: 10px;
+            padding: 20px;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            min-width: 200px; /* Set a minimum width to allow scrolling */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .menu-flex-item img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Style for the Add to Order button */
+        .quantity-modify-btn-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .quantity-modify-btn {
+            background-color: transparent;
+            color: #28a745;
+            border: 2px solid #28a745;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            width: 45%; /* Adjust the width as needed */
+        }
+
+        .orders-container {
+            right: 0;
+            position: fixed;
+            order: 2;
+            width: 35%;
+            overflow-y: auto;
+            height: 100vh; /* Set a fixed height for the orders-container */
+        }
+
+        table {
+    flex: 1;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px;
+}
+
+table th {
+    background-color: #90c634;
+    color: white;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table tr{
+    background-color: rgb(92, 91, 91);
+    color:white
+}
+
+table tr:hover {
+    background-color: #59472c; /* Light blue on hover */
+}
+
+
+        .billbutton{
+            margin: 10px;
+            background-color: #28a745;
+            color: #d6d7d6;
+            border: 2px solid #28a745;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            width: 45%; /* Adjust the width as needed */            
+        }
+
+
+    </style>
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    <h1>Order</h1>
+    <div class="flex-container">
+        <!-- Menu Items on the Left -->
+        <div class="menu-container">
+            {% for category_data in all_categories %}
+            <h2>{{ category_data.category }}</h2>
+            <div class="category-container">
+                {% for product in category_data.products %}
+                <div class="menu-flex-item">
+                    <img src="{{ product.image.url }}" alt="{{ product.product_name }} Image">
+                    <div>{{ product.product_name }} - ${{ product.price }}</div>
+                    <div>{{ product.desc }}</div>
+
+                    <!-- Add to Order buttons -->
+                    <div class="quantity-modify-btn-container">
+                        <form method="post" action="{% url 'modify_order' product.product_id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="add">
+                            <input class="quantity-modify-btn" type="submit" value="+">
+                        </form>
+
+                        <form method="post" action="{% url 'modify_order' product.product_id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="subtract">
+                            <input class="quantity-modify-btn" type="submit" value="-">
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Orders Table on the Right -->
+        <div class="orders-container">
+            <h2>Your Order : Order ID ({{order_id}})</h2>
+            <table>
+                <tr>
+                    <th>Order Serial</th>
+                    <!-- <th>Order ID</th> -->
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <!-- <th>Status</th> -->
+                </tr>
+                {% for order_item in specified_order %}
+                <tr>
+                    <td>{{ order_item.serial }}</td>
+                    <!-- <td>{{ order_item.order_id.order_id }}</td> -->
+                    <td>{{ order_item.product_id.product_name }}</td>
+                    <td>{{ order_item.Qty }}</td>
+                    <!-- <td>{{ order_item.status }}</td> -->
+                </tr>
+                {% endfor %}
+
+                
+            </table>
+            <a class="billbutton" style="text-align: center;" href="{% url 'generate_bill' order_id=order_id %}" class="generate-bill-button">Generate Bill</a>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

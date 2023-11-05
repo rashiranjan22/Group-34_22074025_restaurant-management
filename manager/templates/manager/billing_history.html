@@ -1,0 +1,265 @@
+<!-- billing_history.html -->
+<!-- billing_history.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Employee List</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f0f8ff; 
+                background-image: url('/static/users/empbg.jpg');
+                background-size: cover; 
+                background-repeat: no-repeat;  
+                background-attachment: fixed;  
+                background-position: center center; 
+                position: relative;
+            }
+    
+            h1 {
+                color: white;
+            }
+    
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            }
+    
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+                border-radius: 5px; /* Rounded corners for cells */
+            }
+    
+            td{
+                font-family:Verdana, Geneva, Tahoma, sans-serif
+            }
+    
+            tr:nth-child(even) {
+                background-color: #ffe789; /* Light yellow background for even rows */
+            }
+    
+            tr:nth-child(odd) {
+                background-color: #f2f2f2; /* Light gray background for odd rows */
+            }
+    
+            
+    
+            
+    
+            #sidebar {
+            /* margin-top: 30px; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background: #21221cf1;
+            color: #f8eded;
+            overflow-y: auto;
+            transition: all 0.3s;
+            z-index: 200; 
+            }
+    
+    
+            #sidebar ul.nav {
+            list-style: none;
+            padding: 0;
+            margin-top: 40px;
+            }
+            #sidebar ul.nav li {
+            margin: 0;
+            padding: 0;
+            }
+            #sidebar ul.nav li a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #21221cf1;
+            transition: background-color 0.3s;
+            }
+            #sidebar ul.nav li a:hover {
+            background-color: #c2d816f1;
+            transition: background-color 0.3s;
+            }
+            #sidebar ul.nav li i {
+            margin-right: 10px;
+            }
+            #sidebar ul.nav li span.menu-title {
+            display: inline-block;
+            }
+            #sidebar ul.nav li a .menu-arrow {
+            float: right;
+            }
+            #sidebar ul.nav li ul.sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            }
+            #sidebar ul.nav li ul.sub-menu li a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s;
+            }
+            #sidebar ul.nav li ul.sub-menu li a:hover {
+            background-color: #9ea30b;
+            transition: background-color 0.3s;
+            }
+            #sidebar ul.nav li div.collapse {
+            display: none;
+            }
+    
+            #sidebar a.nav-link:hover::before {
+            content: "";
+            position: absolute;
+            background-color: transparent;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #141414;
+            }
+    
+            a:hover {
+                background-color: #ebd770; /* Light yellow on hover */
+            }
+    
+            a {
+                display: inline-block;
+                padding: 8px 12px;
+                background-color: #e9930a; /* #e9930a color for Billing History */
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+            }
+    
+            th {
+                background-color: #e9930a; /* #e9930a color for column headings */
+                color: white;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+            }
+    
+            .vstack {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-top: 50px; /* Adjust the top margin as needed */
+            }
+    
+            .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      color: #fff; /* Text color */
+      padding: 10px 0; /* Add some padding for spacing */
+    }
+    
+    .nav-list {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      padding: 0; /* Reset padding */
+    }
+    
+    .nav-list li {
+      margin-right: 10px;
+    }
+    
+    /* Style for the links to look like buttons */
+    .nav-list li a {
+      display: inline-block;
+      padding: 10px 20px; /* Adjust the padding for button size */
+      background-color: #e9930a; /* Button background color */
+      color: #fff; /* Button text color */
+      text-decoration: none;
+      border-radius: 5px; /* Add rounded corners */
+      transition: background-color 0.3s; /* Add a smooth hover effect */
+    }
+    
+    /* Style for link hover */
+    .nav-list li a:hover {
+      background-color: #4e5052; /* Darker background color on hover */
+    }
+        </style>
+    </head>
+<body>
+    <header class="fixed-header">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href= "{% url 'manager_dashboard' %}">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'employee_list' %}">
+                <i class="icon-layout menu-icon"></i>
+                <span class="menu-title">Employee List</span>
+                <i class="menu-arrow"></i>
+              </a>
+          
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'customer_list' %}">
+                <i class="icon-paper menu-icon"></i>
+                <span class="menu-title">Customer List</span>
+              </a>
+            </li>
+          </ul>
+    </nav>
+    <div class="container " style="margin-left: 250px;">
+        <div class="vstack g-5">
+            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin-top: -20%;">Billing History for {{ customer.name }}</h1>
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Table ID</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+                {% for bill in bills %}
+                    <tr>
+                        <td>{{ bill.order_id }}</td>
+                        <td>{{ bill.table_id }}</td>
+                        <td>{{ bill.amount }}</td>
+                        <td>{{ bill.status }}</td>
+                        <td>{{ bill.date }}</td>
+                        <td><a href="{% url 'generate_bill' order_id=bill.order_id %}">Show Bill</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

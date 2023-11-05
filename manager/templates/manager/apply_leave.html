@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Leave</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff; 
+            background-image: url('/static/users/empbg.jpg');
+            background-size: cover; 
+            background-repeat: no-repeat;  
+            background-attachment: fixed;  
+            background-position: center center; 
+            position: relative;
+        }
+
+        form {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #e9930a; /* #e9930a color */
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            text-align: left; /* Left-align label text */
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: white;
+            color: #e9930a;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ebd770; /* Light blue on hover */
+        }
+
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            color: #fff; /* Text color */
+            padding: 10px 0; /* Add some padding for spacing */
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            padding: 0; /* Reset padding */
+        }
+
+        .nav-list li {
+            margin-right: 10px;
+        }
+
+            /* Style for the links to look like buttons */
+        .nav-list li a {
+            display: inline-block;
+            padding: 10px 20px; /* Adjust the padding for button size */
+            background-color: #e9930a; /* Button background color */
+            color: #fff; /* Button text color */
+            text-decoration: none;
+            border-radius: 5px; /* Add rounded corners */
+            transition: background-color 0.3s; /* Add a smooth hover effect */
+        }
+
+            /* Style for link hover */
+        .nav-list li a:hover {
+            background-color: #4e5052; /* Darker background color on hover */
+        }
+        #sidebar {
+  /* margin-top: 30px; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: #21221cf1;
+  color: #f8eded;
+  overflow-y: auto;
+  transition: all 0.3s;
+  z-index: 200; 
+}
+
+
+#sidebar ul.nav {
+  list-style: none;
+  padding: 0;
+  margin-top: 40px;
+}
+#sidebar ul.nav li {
+  margin: 0;
+  padding: 0;
+}
+#sidebar ul.nav li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+#sidebar ul.nav li a:hover {
+  background-color: #c2d816f1;
+  transition: background-color 0.3s;
+}
+#sidebar ul.nav li i {
+  margin-right: 10px;
+}
+#sidebar ul.nav li span.menu-title {
+  display: inline-block;
+}
+#sidebar ul.nav li a .menu-arrow {
+  float: right;
+}
+#sidebar ul.nav li ul.sub-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#sidebar ul.nav li ul.sub-menu li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+#sidebar ul.nav li ul.sub-menu li a:hover {
+  background-color: #9ea30b;
+  transition: background-color 0.3s;
+}
+#sidebar ul.nav li div.collapse {
+  display: none;
+}
+
+#sidebar a.nav-link:hover::before {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #141414;
+}
+
+
+    </style>
+</head>
+
+<body>
+
+    <header class="fixed-header">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'employee_profile' emp_id=employee.emp_id %}">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Profile</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'apply_leave' emp_id=employee.emp_id %}">
+                <i class="icon-layout menu-icon"></i>
+                <span class="menu-title">Apply Leave</span>
+                <i class="menu-arrow"></i>
+              </a>
+            </li>
+            
+          </ul>
+    </nav>
+
+    <div class="vstack g-5">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" style="color: #e9930a"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action="{% url 'apply_leave' emp_id=employee.emp_id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="emp_id" value="{{ employee.emp_id }}">
+            
+            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Apply for Leave</h1>
+
+            <label for="start_date">Start Date:</label>
+            <input type="date" name="start_date" required>
+
+            <label for="end_date">End Date:</label>
+            <input type="date" name="end_date" required>
+
+            <label for="reason">Reason:</label>
+            <textarea name="reason" required></textarea>
+
+            <button type="submit" >Apply for Leave</button>
+        </form>
+
+        {% if success_message %}
+            <h3 style="color: #e9930a">{{ success_message }}</h3>
+        {% endif %}
+
+    </div>
+    
+</body>
+
+</html>

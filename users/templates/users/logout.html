@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Logout Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #312f2f;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            text-align: center;
+            margin: 20% auto;
+            max-width: 400px;
+            background-color: #646262;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(255, 157, 0, 0.2);
+        }
+
+        h2 {
+            color: rgb(255, 157, 0);
+        }
+        .fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  color: #fff; /* Text color */
+  padding: 10px 0; /* Add some padding for spacing */
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0; /* Reset padding */
+}
+
+.nav-list li {
+  margin-right: 10px;
+}
+
+/* Style for the links to look like buttons */
+.nav-list li a {
+  display: inline-block;
+  padding: 10px 20px; /* Adjust the padding for button size */
+  background-color: #47494b; /* Button background color */
+  color: #fff; /* Button text color */
+  text-decoration: none;
+  border-radius: 5px; /* Add rounded corners */
+  transition: background-color 0.3s; /* Add a smooth hover effect */
+}
+
+/* Style for link hover */
+.nav-list li a:hover {
+  background-color: rgb(255, 157, 0); /* Darker background color on hover */
+}
+ </style>
+</head>
+<body>
+
+    <header class="fixed-header">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'login' %}">login</a></li>
+              </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h2>You have been logged out</h2>
+        <!-- You can add additional content or a link to your application's home page here. -->
+    </div>
+</body>
+</html>

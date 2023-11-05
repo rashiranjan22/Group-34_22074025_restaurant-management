@@ -1,0 +1,234 @@
+{% extends "users/receptionist_dashboard.html" %}
+
+{% load static %}
+
+{% block internalstyle %} 
+<style>
+
+form {
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    background-color: #292824;
+}
+
+/* Style for the form labels and inputs */
+form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    background-color: #292824;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #fff;
+}
+
+form input[type="checkbox"] {
+    margin-left: 5px;
+}
+
+/* Style for the table container */
+.table-container {
+    grid-template-columns: repeat(5, 1fr); /* Adjust the number of tables per row */
+    gap: 10px; /* Adjust the gap between tables */
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+/* Style for vacant tables */
+.table.vacant {
+    background-color: #90c634; /* Green for vacant */
+}
+
+/* Style for occupied tables */
+.table.occupied {
+    background-color: #e97e20; /* Red for occupied */
+}
+
+/* Style for the selected table */
+.table.selected {
+    background-color: rgb(220, 147, 37); /* Blue for selected */
+    color: #fff;
+}
+
+  .table {
+    margin: 20px;
+    padding: 20px;
+    width: 100px;
+    min-height: 100px;
+    display: grid;
+    grid-template-rows: 20px 50px 1fr 50px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s;
+    text-align: center;
+    color: #ffffff;
+    font-size: x-large;
+  }
+
+  .table:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.01);
+  }
+
+  .table-link,
+  .table-exit,
+  .table-icon {
+    position: relative;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .table-link::after {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    content: "";
+    width: 0%;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: all 0.5s;
+  }
+
+  .table-link:hover::after {
+    width: 100%;
+  }
+
+  .table-exit {
+    grid-row: 1/2;
+    justify-self: end;
+  }
+
+  .table-icon {
+    grid-row: 2/3;
+    font-size: 30px;
+  }
+
+  .table-title {
+    grid-row: 3/4;
+    font-weight: 400;
+    color: #ffffff;
+  }
+
+  .table-apply {
+    grid-row: 4/5;
+    align-self: center;
+  }
+
+
+
+</style>
+{% endblock %}
+
+
+
+{% block sidebar %}
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link" href="#">
+      <i class="icon-grid menu-icon"></i>
+      <span class="menu-title">DASHBOARD</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="{% url 'receptionist_dashboard' %}" aria-expanded="false" aria-controls="ui-basic">
+      <i class="icon-layout menu-icon"></i>
+      <span class="menu-title">Orders</span>
+      <i class="menu-arrow"></i>
+    </a>
+    </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="{% url 'view_bills' %}" aria-expanded="false" aria-controls="ui-basic">
+      <i class="icon-layout menu-icon"></i>
+      <span class="menu-title">Bills</span>
+      <i class="menu-arrow"></i>
+    </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="{% url 'menulist' %}" aria-expanded="false" aria-controls="ui-basic">
+        <i class="icon-layout menu-icon"></i>
+        <span class="menu-title">Menu</span>
+        <i class="menu-arrow"></i>
+      </a>
+      </li>
+
+
+</ul>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="order-form">
+<div class="order-form data-card">
+    <h2 style="text-align: center; color: white;">PLACE YOUR ORDER</h2>
+    <form method="post" action="{% url 'place_order' %}" >
+        {% csrf_token %}
+        <label for="phone_no">Phone Number:</label>
+        <input type="text" name="phone_no" required><br>
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+
+        <label for="membership_applied">Membership Applied:</label>
+        <input type="checkbox" name="membership_applied" value="True"><br>
+   
+        <input type="hidden" name="selected_table_id" id="selected_table_id" value="{{ selected_table_id }}">
+        <button type="submit" onclick="redirectToPage()">Submit</button>
+    </form>
+</div>
+
+</div>
+
+<div class="table-container">
+
+
+  {% if vacant_tables %}
+    {% for table in vacant_tables %}
+    <div class="table{% if table.tid == selected_table_id %} selected{% else %}{% if table.status %} occupied{% else %} vacant{% endif %}{% endif %}" data-table-id="{{ table.tid }}" onclick="selectTable( '{{ table.tid }}')">
+        {{ table.tid }}
+    </div>
+    {% endfor %}
+  {% else %}
+    <!-- Display message when no tables are available -->
+    <p style="color: aliceblue;">No Tables available</p>
+{% endif %}
+</div>
+
+    <script>
+        function selectTable(tableId) {
+            document.getElementById('selected_table_id').value = tableId;
+
+            // Reset the color of all tables
+            var tables = document.querySelectorAll('.table');
+            tables.forEach(function(table) {
+                table.classList.remove('selected');
+            });
+
+            // Set the color of the selected table to blue
+            var selectedTable = document.querySelector('.table[data-table-id="' + tableId + '"]');
+            if (selectedTable) {
+                selectedTable.classList.add('selected');
+            }
+        }
+        function redirectToPage() {
+        // Change the URL to the desired page
+        window.location.href = '/your-redirect-path/';
+        }
+    </script>
+
+{% endblock %}

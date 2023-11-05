@@ -1,0 +1,32 @@
+{% extends 'users/chef_dashboard.html' %}
+
+{% load static %}
+
+{% block internal %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/chef_edit_recipe.css' %}">
+    <style>
+    .recipe-link {
+        background-color: #FFD700; /* Bulged out yellow */
+        color: #000;
+        padding: 15px 30px; /* Increase the padding for a bulged effect */
+        border: none;
+        cursor: pointer;
+        border-radius: 10px; /* Add rounded corners */
+    }  
+    </style>
+{% endblock %}
+
+
+{% block content %}
+<div class="recipe-edit-container" style="color: white;">
+    <h2 > Recipe for {{ product.product_name }}</h2>
+    
+    <div class="product-image-container" >
+        <img class="product-image" src="{{ product.image.url }}" alt="{{ product.product_name }} " style="background-color: rgb(154, 154, 36); padding: 10%;">
+    </div>
+
+    <p>{{ product.recipe.recipe}}</p>
+    <a class="recipe-link" href="{% url 'edit_recipe' product_id=product.product_id %}">Edit Recipe</a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Receptionist Dashboard{% endblock %}</title>
+    {% block extrahead %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/receptionist_base.css' %}">
+    <!-- Add your other head content here -->
+</head>
+
+
+
+
+<!-- <header class="header">
+    <h1 class="logo"><a href="#">Flexbox</a></h1>
+
+</header>  -->
+
+<body>
+
+  <div class="main-nav-container">
+    <ul class="main-nav">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</div>
+
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+
+    {% block sidebar %}  {% endblock %}
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" href="index.html">
+          <i class="icon-grid menu-icon"></i>
+          <span class="menu-title">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="{% url 'recipe_list' %}" aria-expanded="false" aria-controls="ui-basic">
+          <i class="icon-layout menu-icon"></i>
+          <span class="menu-title">{% block link_title_1 %}Recipes{% endblock %}</span>
+          <i class="menu-arrow"></i>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+          <i class="icon-columns menu-icon"></i>
+          <span class="menu-title">{% block link_title_2 %}Default Title 1{% endblock %}</span>
+          <i class="menu-arrow"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+          <i class="icon-bar-graph menu-icon"></i>
+          <span class="menu-title">{% block link_title_3 %}Default Title 1{% endblock %}</span>
+          <i class="menu-arrow"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+          <i class="icon-grid-2 menu-icon"></i>
+          <span class="menu-title">{% block link_title_4 %}Default Title 1{% endblock %}</span>
+          <i class="menu-arrow"></i>
+        </a>
+      </li>
+
+    </ul>
+  </nav>
+
+    <div class="content" >
+    <!-- Your dashboard content goes here -->
+        {% block content %}{% endblock %}
+    <!-- Add your dashboard content here -->
+    </div>
+
+
+</body>
+</html>

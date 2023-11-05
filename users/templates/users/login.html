@@ -1,0 +1,142 @@
+<!-- users/templates/users/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            background-image: url('/static/users/loginbg2.avif');
+            background-size:cover; 
+            
+            background-repeat: no-repeat;  
+            background-attachment: fixed;  
+            background-position: center center; 
+            position: relative;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column; /* Ensure a vertical layout */
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        
+        form {
+            width: 400px;
+            padding: 20px;
+            background-color: rgb(124, 65, 7);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px; /* Add margin to separate form and link */
+        }
+
+        h2 {
+            text-align: center;
+            color: rgb(255, 179, 0);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: rgb(255, 179, 0);
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .login-link {
+            text-align: center;
+            /* Remove margin-top from .login-link */
+        }
+
+        .login-link a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <h2>User Login</h2>
+
+        {% if message %}
+            <div class="error-message">
+                {{ message }}
+            </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="id_user_type">User Type:</label>
+            <select id="id_user_type" name="user_type" required>
+                <option value="employee">Employee</option>
+                <option value="chef">Chef</option>
+                <option value="manager">Manager</option>
+                <option value="receptionist">Receptionist</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="id_employee_code">Employee Code:</label>
+            <input type="text" id="id_employee_code" name="username" required>
+        </div>
+    
+        <div class="form-group">
+            <label for="id_password">Password:</label>
+            <input type="password" id="id_password" name="password" required>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="login-link">
+        <p style="color: azure;">Not a user? <button><a href="{% url 'register' %}">Register Instead</a></button></p>
+    </div>
+</body>
+
+
+</html>
+
+
+
+

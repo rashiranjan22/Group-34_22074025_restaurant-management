@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Place Order</title>
+    <style>
+        .table {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            text-align: center;
+            line-height: 50px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .vacant {
+            background-color: green;
+        }
+        .occupied {
+            background-color: red;
+        }
+        .selected {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h2>Place Your Order</h2>
+    <form method="post" action="{% url 'place_order' %}" >
+        {% csrf_token %}
+        <label for="phone_no">Phone Number:</label>
+        <input type="text" name="phone_no" required><br>
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+
+        <label for="membership_applied">Membership Applied:</label>
+        <input type="checkbox" name="membership_applied" value="True"><br>
+
+        <p>Select a Table:</p>
+        {% for table in vacant_tables %}
+        <div class="table{% if table.tid == selected_table_id %} selected{% else %}{% if table.status %} occupied{% else %} vacant{% endif %}{% endif %}" data-table-id="{{ table.tid }}" onclick="selectTable( '{{ table.tid }}')">
+            {{ table.tid }}
+        </div>
+        {% endfor %}
+    
+
+        <input type="hidden" name="selected_table_id" id="selected_table_id" value="{{ selected_table_id }}">
+        
+        <!-- <button type="submit">Submit</button> -->
+        <button type="submit" onclick="redirectToPage()">Submit</button>
+    </form>
+
+    <script>
+        function selectTable(tableId) {
+            document.getElementById('selected_table_id').value = tableId;
+
+            // Reset the color of all tables
+            var tables = document.querySelectorAll('.table');
+            tables.forEach(function(table) {
+                table.classList.remove('selected');
+            });
+
+            // Set the color of the selected table to blue
+            var selectedTable = document.querySelector('.table[data-table-id="' + tableId + '"]');
+            if (selectedTable) {
+                selectedTable.classList.add('selected');
+            }
+        }
+        function redirectToPage() {
+        // Change the URL to the desired page
+        window.location.href = '/your-redirect-path/';
+        }
+    </script>
+</body>
+</html>
+

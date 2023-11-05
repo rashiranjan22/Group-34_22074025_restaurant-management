@@ -1,0 +1,42 @@
+<!-- HTML -->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Receptionist Dashboard{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'users/receptionist.css' %}">
+    <!-- Add your other head content here -->
+</head>
+<body>
+    <div class="container">
+        <aside>
+            <p>Menu</p>
+            <a href="#">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                {% block link_title_1 %}Default Title 1{% endblock %}
+            </a>
+            <a href="#">
+                <i class="fa fa-laptop" aria-hidden="true"></i>
+                {% block link_title_2 %}Default Title 2{% endblock %}
+            </a>
+            <a href="#">            
+                <i class="fa fa-clone" aria-hidden="true"></i>
+                {% block link_title_3 %}Default Title 3{% endblock %}
+            </a>
+        </aside>
+
+        <div class="content">
+            <!-- Your dashboard content goes here -->
+            {% block content %}{% endblock %}
+            <!-- Add your dashboard content here -->
+        </div>
+    </div>
+
+    <div class="social">
+        <a href="https://www.linkedin.com/in/florin-cornea-b5118057/" target="_blank">
+            <i class="fa fa-linkedin"></i>
+        </a>
+    </div>
+</body>
+</html>

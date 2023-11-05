@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Chef Dashboard{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'users/chef_base.css' %}">
+<!-- In your HTML template -->
+<script>
+  function confirmLogout() {
+      var logout = confirm("Are you sure you want to log out?");
+      if (logout) {
+          // If the user clicks "OK" in the confirmation dialog, programmatically click the link.
+          document.getElementById("logout-link").click();
+      } else {
+          // If the user clicks "Cancel" in the confirmation dialog, do nothing.
+      }
+  }
+</script>
+
+    {% block extrahead %}{% endblock %}
+</head>
+
+<!-- <header class="header">
+    <h1 class="logo"><a href="#">Flexbox</a></h1>
+
+</header>  -->
+
+<body>
+
+  <header class="fixed-header">
+    <nav>
+        <ul class="nav-list">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% block nav %}
+            <li><a href="{% url 'register' %}">Register</a></li>
+            <li><a href="{% url 'login' %}">login</a></li>
+            {% endblock %}
+          </ul>
+    </nav>
+</header>
+
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  
+  {% block sidebar %}  {% endblock %}
+  
+</nav>
+
+<div class="content" >
+  <!-- Your dashboard content goes here -->
+  {% block content %}{% endblock %}
+  <!-- Add your dashboard content here -->
+</div>
+<!-- <div class="right"> 
+  <img src="{% static 'users/burger_.png' %}"></img>
+  </div> -->
+
+
+  <script src="../../static/users/app.js"></script>
+</body>
+</html>

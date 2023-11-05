@@ -1,0 +1,38 @@
+{% extends 'users/chef_dashboard.html' %}
+
+{% load static %}
+
+{% block internal %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/chef_edit_recipe.css' %}">
+    <style>
+    button {
+    background-color: #FFD700; /* Bulged out yellow */
+    color: #000;
+    padding: 15px 30px; /* Increase the padding for a bulged effect */
+    border: none;
+    cursor: pointer;
+    border-radius: 10px; /* Add rounded corners */
+}
+    </style>
+{% endblock %}
+
+{% block title %}Edit Recipe{% endblock %}
+
+{% block content %}
+<div class="recipe-edit-container">
+    <h2 style="color: white;">{% block action %}Edit{% endblock %} Recipe for {{ product.product_name }}</h2>
+    
+    <div class="product-image-container">
+        <img class="product-image" src="{{ product.image.url }}" alt="{{ product.product_name }}">
+    </div>
+
+    <form method="post" class="recipe-form">
+        {% csrf_token %}
+        <div class="recipe-form-field" >
+            {{ form.recipe.label_tag }}
+            {{ form.recipe }}
+        </div>
+        <button type="submit" class="update-button">{% block action2 %}Update{% endblock %} Recipe</button>
+    </form>
+</div>
+{% endblock %}

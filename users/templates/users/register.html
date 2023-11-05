@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            background-image: url('/static/users/loginbg2.avif');
+            background-size:cover; 
+            
+            background-repeat: no-repeat;  
+            background-attachment: fixed;  
+            background-position: center center; 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        form {
+            width: 400px;
+            padding: 20px;
+            background-color: rgb(124, 65, 7);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: rgb(255, 179, 0);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .login-instead {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .login-instead a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .transparent-button {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 14px;
+            padding: 0;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            color: #000;
+        }
+
+        .password-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .password-group input {
+            width: 100%;
+        }
+
+        button {
+            background-color: rgb(255, 179, 0);
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .default-text {
+            color: #a9a9a9; /* Lighter grey color */
+        }
+
+        .toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px;
+        border-radius: 4px;
+        transition: transform 0.5s;
+        transform: translateY(-60px);
+    }
+
+    .toast-show {
+        transform: translateY(0);
+    }
+
+    </style>
+</head>
+
+<body>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <h2>User Registration</h2>
+
+        {% if success_message %}
+            <div class="success-message">{{ success_message }}</div>
+        {% endif %}
+
+        {% if form.non_field_errors %}
+            <div class="error-message">{{ form.non_field_errors.as_text }}</div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+            <div class="error-message">{{ form.name.errors.as_text }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="id_emp_id">Employee ID:</label>
+            {{ form.emp_id }}
+            <!-- Display emp_id error message -->
+            <div class="error-message">{{ form.emp_id.errors.as_text }}</div>
+        </div>
+
+        <div class="password-group">
+            <div class="form-group">
+                <label for="id_password1">Password:</label>
+                {{ form.password1 }}
+                <!-- Display password1 error message -->
+                <div class="error-message">{{ form.password1.errors.as_text }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">Confirm Password:</label>
+                {{ form.password2 }}
+                <!-- Display password2 error message -->
+                <div class="error-message">{{ form.password2.errors.as_text }}</div>
+            </div>
+        </div>
+
+        <button type="submit">Register</button>
+
+        <div class="login-instead">
+            <a href="{% url 'login' %}" class="transparent-button" style="color: rgb(255, 179, 0);">Login Instead</a>
+        </div>
+        
+    </form>
+
+    
+
+    <script>
+        // Function to handle input focus and blur events
+        function handleInputEvents(inputId, placeholderValue) {
+            const inputElement = document.getElementById(inputId);
+
+            // Set placeholder value initially
+            inputElement.value = placeholderValue;
+            inputElement.classList.add('default-text');
+
+            // Add event listener for focus
+            inputElement.addEventListener('focus', function () {
+                // Clear placeholder value on focus
+                if (inputElement.value === placeholderValue) {
+                    inputElement.value = '';
+                    inputElement.classList.remove('default-text');
+                }
+            });
+
+            // Add event listener for blur
+            inputElement.addEventListener('blur', function () {
+                // Reset placeholder value if the field is empty
+                if (inputElement.value === '') {
+                    inputElement.value = placeholderValue;
+                    inputElement.classList.add('default-text');
+                }
+            });
+        }
+
+            // Function to display a toast message
+            function showToast(message) {
+                var toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                setTimeout(function () {
+                    toast.classList.add('toast-show');
+                    setTimeout(function () {
+                        toast.classList.remove('toast-show');
+                        document.body.removeChild(toast);
+                    }, 3000); // Adjust the duration as needed
+                }, 100); // Delay before showing the toast
+            }
+
+        // Call the function for each input field
+        handleInputEvents('id_name', 'A');
+        handleInputEvents('id_employee_id', 'Employee ID');
+
+         // Example usage: Call showToast after a successful registration
+         // Replace this with the actual success condition in your code
+         var registrationSuccessful = true; // Replace with your success condition
+         if (registrationSuccessful) {
+             showToast('Registered successfully');
+         }
+    </script>
+</body>
+
+</html>

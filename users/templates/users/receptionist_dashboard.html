@@ -1,0 +1,174 @@
+{% extends "users/chef_base.html" %}
+
+{% load static %}
+{% block title %}Receptionist Dashboard{% endblock %}
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/chef_dsb.css' %}">
+
+<Style>
+
+#sidebar ul.nav li ul.sub-menu li a:hover {
+    background-color: #434240;
+    transition: background-color 0.3s;
+  }
+
+  #sidebar ul.nav li a:hover {
+    background-color: #658a24;
+    transition: background-color 0.3s;
+  }
+
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background: #353433;
+    color: #fff;
+    overflow-y: auto;
+    transition: all 0.3s;
+    z-index: 1; /* Lower z-index to be below the navbar */
+
+  }
+    .done {
+        color: #90c634;
+    }
+
+    .pending {
+        color: #EF6C57;
+    }
+
+    #keywords thead tr th.headerSortUp, #keywords thead tr th.headerSortDown {
+  background: #90c634;
+}
+
+#keywords thead {
+  cursor: pointer;
+  background: #90c634;
+}
+
+::selection { background: #90c634; color: #fff; }
+::-moz-selection { background: #90c634; color: #fff; }
+::-webkit-selection { background: #90c634; color: #fff; }
+
+body {
+  background-image: url('/static/users/bg2.jpg');
+  background-size: cover; 
+  background-repeat: no-repeat;  
+  background-attachment: fixed;  
+  background-position: center center; 
+  position: relative;
+
+}
+  .content {
+  margin-left: 400px; /* Adjust this value to match your sidebar width */
+  margin-right: 450px;
+
+}
+
+.nav-list li a {
+  background-color: #658a24; /* Button background color */
+}
+
+table {
+    flex: 1;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px;
+}
+
+table th {
+    background-color: #90c634;
+    color: white;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table tr{
+    background-color: rgb(92, 91, 91);
+    color:white
+}
+
+table tr:hover {
+    background-color: #59472c; /* Light blue on hover */
+}
+    
+</Style>
+
+{% block internalstyle %} 
+ {% endblock %}
+
+ {% block nav %}{% endblock %}
+
+
+
+{% endblock %}
+
+{% block sidebar %}
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link" href="#">
+      <i class="icon-grid menu-icon"></i>
+      <span class="menu-title">DASHBOARD</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="{% url 'place_order' %}" aria-expanded="false" aria-controls="ui-basic">
+      <i class="icon-layout menu-icon"></i>
+      <span class="menu-title">Place An Order</span>
+      <i class="menu-arrow"></i>
+    </a>
+    </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="{% url 'view_bills' %}" aria-expanded="false" aria-controls="ui-basic">
+      <i class="icon-layout menu-icon"></i>
+      <span class="menu-title">Bills</span>
+      <i class="menu-arrow"></i>
+    </a>
+    </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="{% url 'menulist' %}" aria-expanded="false" aria-controls="ui-basic">
+      <i class="icon-layout menu-icon"></i>
+      <span class="menu-title">Menu</span>
+      <i class="menu-arrow"></i>
+    </a>
+    </li>
+
+
+</ul>
+{% endblock %}
+
+
+{% block content %}
+    <!-- Your specific content for this page -->
+    <h2 style="color: white; font-size: xx-large;">Welcome to the Receptionist Dashboard</h2>
+        <div id="wrapper">
+         <!-- <h1>Sortable Table of Search Queries</h1> -->
+         
+         <table id="keywords" cellspacing="0" cellpadding="0">
+           <thead>
+             <tr>
+               <th><span>Order ID</span></th>
+               <th><span>Product Name</span></th>
+               <th><span>Qty</span></th>
+               <th><span>Status</span></th>
+             </tr>
+           </thead>
+
+           <tbody>
+            {% for order in orders %}
+            <tr data-order-id="{{ order.order_id.order_id }}">
+                <td class="lalign">{{ order.order_id.order_id }}</td>
+                <td>{{ order.product_id.product_name }}</td>
+                <td>{{ order.Qty }}</td>
+                <td class="{% if order.status %}done{% else %}pending{% endif %}">{{ order.status }}</td>
+            </tr>
+            {% endfor %}
+
+    <!-- Add your specific content here -->
+{% endblock %}
+
