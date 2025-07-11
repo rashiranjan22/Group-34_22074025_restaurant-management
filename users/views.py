@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser
 from django.contrib.auth import authenticate, login
@@ -7,24 +6,6 @@ from orders.models import Orders
 from manager.models import LeaveRequest
 from  users.decorators import manager_required,receptionist_required,chef_required,employee_required,manager_receptionist_required # Import your custom decorator
 
-
-# Create your views here.
-# from django.contrib.auth import login
-# from django.shortcuts import render, redirect
-# from .forms import CustomUserForm
-
-# def register_view(request):
-#     if request.method == 'POST':
-#         form = CustomUserForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return render(request, 'users/types_of_users.html')
-#     else:
-#         form = CustomUserForm()
-
-#     return render(request, 'users/register.html', {'form': form})
-
-# users/views.py
 from django.shortcuts import render,get_object_or_404
 from .forms import CustomUserForm
 from .models import Employee
@@ -38,20 +19,11 @@ def register_view(request):
 
             # Get employee details based on emp_id
             employee = Employee.objects.get(emp_id=form.cleaned_data['emp_id'])
-
-            # Check employee position and set user_type accordingly
-            # if employee.position in ['chef', 'manager', 'receptionist']:
-            # custom_user.user_type = employee.position
-            # else:
-            #     form.add_error(None, "Access denied. Employee must be a chef, manager, or receptionist.")
-            #     return render(request, 'users/register.html', {'form': form})
-
-            # Check if the entered name matches the name in the Employee table
             if form.cleaned_data['name'] != employee.name:
                 form.add_error('name', "Name of the employee doesn't match.")
                 return render(request, 'users/register.html', {'form': form})
 
-            custom_user.name = employee.name
+            # custom_user.name = employee.name // redundant
             custom_user.employee_id = employee.emp_id
             custom_user.employee = employee
             custom_user.save()
@@ -63,8 +35,6 @@ def register_view(request):
         form = CustomUserForm()
 
     return render(request, 'users/register.html', {'form': form})
-
-# return render(request, 'users/types_of_users.html')
 
 
 # views.py
