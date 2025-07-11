@@ -25,12 +25,8 @@ class Employee(models.Model):
 
 class CustomUser(AbstractUser):
 
-
-    # user_type = models.CharField(max_length=20, choices=USER_TYPES, default='employee')
     name = models.CharField(max_length=255, default='Amy')
     employee_id = models.PositiveIntegerField(unique=True,default=0)
-    # employee_profile = models.OneToOneField(Employee, on_delete=models.CASCADE, null=True, blank=True)
-
     def save(self, *args, **kwargs):
         # Set the username based on the employee_id
         if not self.username:
